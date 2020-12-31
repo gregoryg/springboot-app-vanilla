@@ -1,0 +1,3 @@
+* Vanilla Spring App for Rancher
+  This project demonstrates using a SpringBoot image in a Helm chart and Rancher catalog
+  
