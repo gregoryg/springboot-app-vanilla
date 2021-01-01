@@ -1,3 +1,19 @@
 * Vanilla Spring App for Rancher
   This project demonstrates using a SpringBoot image in a Helm chart and Rancher catalog
-  
+** Build the image for the REST service
+   #+begin_src bash
+     docker build --build-arg ENV=sbx -t gregoryg/springboot-app-vanilla:v4 .
+     docker push gregoryg/springboot-app-vanilla:v4
+   #+end_src
+** Run and test the image in kubernetes
+   #+begin_src bash
+   k run myrest --image=gregoryg/springboot-app-vanilla:v4
+   k expose pod myrest --port=8080
+   k port-forward pod myrest 8080
+   #+end_src
+
+   From another shell
+   #+begin_src bash
+     curl localhost:8080/greeting?name=Ro+Zi+Li; echo
+   #+end_src
+* Deploy using the Helm chart
