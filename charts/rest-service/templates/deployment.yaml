@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "gjg-spring-rest.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "gjg-spring-rest.name" . }}
+    helm.sh/chart: {{ include "gjg-spring-rest.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "gjg-spring-rest.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "gjg-spring-rest.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      #securityContext:
+        #runAsUser: {{ .Values.securityContext.runAsUser }}
+        #runAsGroup: {{ .Values.securityContext.runAsGroup }}
+        #fsGroup: {{ .Values.securityContext.fsGroup }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ['sh', '-c', 'java -Xmx2g -Xms2g -jar -Dspring.config.location=/config/application-sbx.properties -Dspring.kafka.retry.config.sasl.jaas.config.username=$CONFIG_USERNAME -Dspring.kafka.retry.config.sasl.jaas.config.password=$CONFIG_PASSWORD -Dspring.kafka.retry.bootstrap-servers=$BOOTSTRAP_SERVERS -Dspring.cloud.stream.kafka.binder.jaas.options.username=$OPTIONS_USERNAME -Dspring.cloud.stream.kafka.binder.jaas.options.password=$OPTIONS_PASSWORD -Dspring.cloud.stream.kafka.binder.brokers=$BINDER_BROKERS -Djwt.token.privateKey=$TOKEN_PRIVATEKEY -Djwt.token.privateKeyId=$PRIVATE_KID -Djava.security.egd=file:/dev/./urandom /kafka-to-rest-streamer.jar' ]
+          volumeMounts:
+            - name: configdir
+              mountPath: /config
+          envFrom:
+          - secretRef:
+              name: {{ .Values.secretName }}
+          ports:
+            - name: http
+              containerPort: 8088
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      imagePullSecrets:
+      - name: "{{ .Values.imagePullSecrets }}"
+      # nodeSelector:
+      #   eks.amazonaws.com/nodegroup: ois-npd-cf01975c
+      volumes:
+      - name: configdir
+        configMap:
+          name: {{ .Values.configMap }}
