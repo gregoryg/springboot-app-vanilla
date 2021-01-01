@@ -21,7 +21,15 @@ questions:
     default: "v1.0.5"
     description: "Specify Springboot REST API image tag"
     label: Springboot REST API image tag
+# - variable: service.defaultSettings
+#   default: "true"
+#   description: "Use default service/port settings"
+#   label: Use default service/port settings
+#   type: boolean
+#   show_subquestion_if: false
+#   group:
 - variable: service.type
+  group: Service settings
   default: "ClusterIP"
   description: "Define API service type"
   type: enum
@@ -30,7 +38,7 @@ questions:
     - "NodePort"
     - "LoadBalancer"
     - "Rancher-Proxy"
-  label: Springboot UI Service
+  label: Springboot API Service
   show_subquestion_if: "NodePort"
   subquestions:
   - variable: service.nodePort
