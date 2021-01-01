@@ -1,0 +1,43 @@
+categories:
+- API
+- goon
+namespace: spring-rest
+questions:
+- variable: image.defaultImage
+  default: "true"
+  description: "Use the default Springboot REST API image"
+  label: "Use default image"
+  type: boolean
+  show_subquestion_if: false
+  group: "Springboot REST Images"
+  subquestions:
+  - variable: image.repository
+    type: string
+    default: gregoryg/springboot-app-vanilla
+    description: "Specify Springboot REST API image"
+    label: Springboot REST API image
+  - variable: image.tag
+    type: string
+    default: "v1.0.5"
+    description: "Specify Springboot REST API image tag"
+    label: Springboot REST API image tag
+- variable: service.type
+  default: "ClusterIP"
+  description: "Define API service type"
+  type: enum
+  options:
+    - "ClusterIP"
+    - "NodePort"
+    - "LoadBalancer"
+    - "Rancher-Proxy"
+  label: Springboot UI Service
+  show_subquestion_if: "NodePort"
+  subquestions:
+  - variable: service.nodePort
+    default: ""
+    description: "NodePort port number(to set explicitly, choose port between 30000-32767)"
+    type: int
+    min: 30000
+    max: 32767
+    show_if: "service.type=NodePort||service.type=LoadBalancer"
+    label: API Service NodePort number
