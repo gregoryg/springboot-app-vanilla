@@ -21,3 +21,5 @@ version: 0.1.0
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: 1.0.5
+home: https://github.com/gregoryg/springboot-app-vanilla
+icon: https://github.com/gregoryg/springboot-app-vanilla/blob/master/img/spring-api.png

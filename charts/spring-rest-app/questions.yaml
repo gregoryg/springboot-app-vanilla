@@ -1,3 +1,5 @@
+# To make a settings section in the app run editor:
+#  top-level: variable.group
 categories:
 - API
 - goon
