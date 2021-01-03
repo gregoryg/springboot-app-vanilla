@@ -30,6 +30,12 @@ questions:
 #   type: boolean
 #   show_subquestion_if: false
 #   group:
+- variable: replicaCount
+  default: 2
+  description: "Number of replicas"
+  label: "# replicas"
+  type: int
+  group: "Number of Replicas"
 - variable: service.type
   group: Service settings
   default: "ClusterIP"
