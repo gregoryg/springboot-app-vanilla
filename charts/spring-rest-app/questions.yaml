@@ -66,14 +66,14 @@ questions:
   show_subquestion_if: true
   subquestions:
   - variable: autoscaling.minReplicas
-    group: "Min/Max pods"
+    # group: "Min/Max pods"
     default: 1
     type: int
     min: 1
     max: 20
     label: "Minimum number of pods (replicas)"
   - variable: autoscaling.maxReplicas
-    group: "Min/Max pods"
+    # group: "Min/Max pods"
     default: 20
     type: int
     min: 2
