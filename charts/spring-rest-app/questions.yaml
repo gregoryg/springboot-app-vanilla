@@ -58,7 +58,7 @@ questions:
     show_if: "service.type=NodePort||service.type=LoadBalancer"
     label: API Service NodePort number
 - variable: autoscaling.enabled
-  group: "Horizontal pod auto-scaling"
+  group: "Auto-scaling"
   default: "false"
   description: "Scale # of pods automatically based on CPU usage"
   type: boolean
@@ -73,6 +73,7 @@ questions:
     max: 20
     label: "Minimum number of pods (replicas)"
   - variable: autoscaling.maxReplicas
+    group: "Min/Max pods"
     default: 20
     type: int
     min: 2
