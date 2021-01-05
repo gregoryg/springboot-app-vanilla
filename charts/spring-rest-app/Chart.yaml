@@ -12,4 +12,5 @@ keywords:
 - rest
 
 home: https://github.com/gregoryg/springboot-app-vanilla
-icon: https://github.com/gregoryg/springboot-app-vanilla/raw/master/img/spring-api.png
+# icon: https://github.com/gregoryg/springboot-app-vanilla/raw/master/img/spring-api.png
+icon: file://../lululemon-athletica-icon.jpeg
