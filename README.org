@@ -7,9 +7,9 @@
    #+end_src
 ** Run and test the image in kubernetes
    #+begin_src bash
-   k run myrest --image=gregoryg/springboot-app-vanilla:v4
-   k expose pod myrest --port=8080
-   k port-forward pod myrest 8080
+     kubectl run myrest --image=gregoryg/springboot-app-vanilla:v4
+     kubectl expose pod myrest --port=8080
+     kubectl port-forward pod myrest 8080
    #+end_src
 
    From another shell
@@ -17,3 +17,11 @@
      curl localhost:8080/greeting?name=Ro+Zi+Li; echo
    #+end_src
 * Deploy using the Helm chart
+* Deploy using Rancher Cluster Explorer
+  In the Cluster Explorer view, add a catalog:
+  Upper left menu: Apps & Marketplace -> Chart Repositories -> Create
+  + Name: vanilla-repo
+  + Target type: Git Repository
+  + Index URL: https://github.com/gregoryg/springboot-app-vanilla
+  + Git Branch: master
+    
