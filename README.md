@@ -1,4 +1,4 @@
-# Vanilla Spring App for Rancher
+# Springboot app template for Kubernetes and Rancher
 
 This project demonstrates using a SpringBoot image in a Helm chart and Rancher catalog
 
